@@ -2,6 +2,7 @@ const Webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common.js');
+const HtmlReplaceWebpackPlugin = require('html-replace-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -19,9 +20,19 @@ module.exports = merge(common, {
     new MiniCssExtractPlugin({
       filename: 'bundle.css',
     }),
+    new HtmlReplaceWebpackPlugin([
+      {
+        pattern: '/public/',
+        replacement: 'public/',
+      },
+    ]),
   ],
   module: {
     rules: [
+      {
+        test: /\.pug$/,
+        use:  ['html-loader', 'pug-html-loader?pretty&exports=false']
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

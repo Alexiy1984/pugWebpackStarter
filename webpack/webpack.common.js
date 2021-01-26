@@ -2,6 +2,7 @@ const Path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPugPlugin = require('html-webpack-pug-plugin');
 
 module.exports = {
   entry: {
@@ -21,8 +22,11 @@ module.exports = {
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({ patterns: [{ from: Path.resolve(__dirname, '../public'), to: 'public' }] }),
     new HtmlWebpackPlugin({
-      template: Path.resolve(__dirname, '../src/index.html'),
+      filename: 'index.html',
+      template: Path.resolve(__dirname, '../src/index.pug'),
+      inject: true,
     }),
+    new HtmlWebpackPugPlugin(),
   ],
   resolve: {
     alias: {
