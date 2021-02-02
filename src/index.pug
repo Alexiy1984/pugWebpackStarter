@@ -1,9 +1,7 @@
 doctype html
 html(lang='en')
-  head
-    title Starter
+  - var pageTitle = 'Page Title'
+  include partials/head
   body
-    h1 Test
-    div
-      p This is test pug file  
+    include partials/header
     include partials/footer    
